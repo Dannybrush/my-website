@@ -147,7 +147,7 @@
   <div 
     class="page-container" 
     bind:this={pageContainer} 
-    on:mousemove={handleMouseMove}
+    onmousemove={handleMouseMove}
   >
     <!-- Animated background blobs -->
     <div 
@@ -226,21 +226,21 @@
       <div class="skills-tabs">
         <button 
           class:active={element.activeSkillTab === "frontend"}
-          on:click={() => element.activeSkillTab = "frontend"}
+          onclick={() => element.activeSkillTab = "frontend"}
         >
           <Monitor size={20} />
           Frontend
         </button>
         <button 
           class:active={element.activeSkillTab === "backend"}
-          on:click={() => element.activeSkillTab = "backend"}
+          onclick={() => element.activeSkillTab = "backend"}
         >
           <Server size={20} />
           Backend
         </button>
         <button 
           class:active={element.activeSkillTab === "tools"}
-          on:click={() => element.activeSkillTab = "tools"}
+          onclick={() => element.activeSkillTab = "tools"}
         >
           <Layers size={20} />
           Tools
