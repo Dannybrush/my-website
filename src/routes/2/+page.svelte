@@ -7,7 +7,7 @@
     // Import icons from Lucide
     import { 
       Rocket, 
-      Code, 
+      Code2, 
       BrainCircuit, 
       Github, 
       Linkedin, 
@@ -72,22 +72,22 @@
     
     // Scroll detection for parallax effects
     const handleScroll = () => {
-      element.scrollY = window.scrollY;
+      scrollY = window.scrollY;
     };
     
     // Track mouse movement for interactive effects
     const handleMouseMove = (e) => {
-      element.cursorPosition = { 
+      cursorPosition = { 
         x: e.clientX, 
         y: e.clientY 
       };
-      cursorSpring.set(element.cursorPosition);
+      cursorSpring.set(cursorPosition);
     };
     
     $effect(() => {
       // Update cursor spring animation when cursor position changes
-      if (element.cursorPosition.x && element.cursorPosition.y) {
-        cursorSpring.set(element.cursorPosition);
+      if (cursorPosition.x && cursorPosition.y) {
+        cursorSpring.set(cursorPosition);
       }
     });
     
@@ -97,11 +97,6 @@
     let skillsSection;
     let projectsSection;
     
-    // Calculate parallax offset based on scroll position
-    function parallaxOffset(factor) {
-      return element.scrollY * factor;
-    }
-    
     onMount(() => {
       // Add scroll and mousemove event listeners
       window.addEventListener('scroll', handleScroll);
@@ -109,7 +104,7 @@
       
       // Trigger intro animation sequence
       setTimeout(() => {
-        element.introComplete = true;
+        introComplete = true;
       }, 500);
       
       // Setup intersection observers for scroll animations
@@ -137,11 +132,14 @@
         observer.disconnect();
       };
     });
+    
+    // Calculate parallax offset based on scroll position
+    $derived.parallaxOffset = (factor) => scrollY * factor;
   </script>
   
   <svelte:head>
-    <title>{PII.name} - {PII.title}</title>
-    <meta name="description" content={PII.tagline} />
+    <title>{$state.name} - {$state.title}</title>
+    <meta name="description" content={$state.tagline} />
   </svelte:head>
   
   <div 
@@ -152,11 +150,11 @@
     <!-- Animated background blobs -->
     <div 
       class="blob blob-1" 
-      style:transform={`translate(${$cursorSpring.x * 0.02}px, ${$cursorSpring.y * 0.02 - parallaxOffset(0.05)}px)`}
+      style:transform={`translate(${$cursorSpring.x * 0.02}px, ${$cursorSpring.y * 0.02 - $parallaxOffset(0.05)}px)`}
     ></div>
     <div 
       class="blob blob-2" 
-      style:transform={`translate(${-$cursorSpring.x * 0.01}px, ${-$cursorSpring.y * 0.01 - parallaxOffset(0.03)}px)`}
+      style:transform={`translate(${-$cursorSpring.x * 0.01}px, ${-$cursorSpring.y * 0.01 - $parallaxOffset(0.03)}px)`}
     ></div>
     
     <!-- Grid overlay -->
@@ -168,23 +166,23 @@
       bind:this={heroSection}
       in:fade={{ duration: 1000, delay: 200 }}
     >
-      <div class="hero-content" style:transform={`translateY(${parallaxOffset(-0.1)}px)`}>
+      <div class="hero-content" style:transform={`translateY(${$parallaxOffset(-0.1)}px)`}>
         <h1 class="title">
           <span 
             class="gradient-text"
             in:fly={{ y: -50, duration: 1000, delay: 300 }}
-          >{PII.name}</span>
+          >{$state.name}</span>
         </h1>
         
         <div class="title-badge" in:fly={{ y: 30, duration: 1000, delay: 600 }}>
-          <span>{PII.title}</span>
+          <span>{$state.title}</span>
         </div>
         
         <p 
           class="subtitle"
           in:fly={{ y: 30, duration: 1000, delay: 900 }}
         >
-          {PII.tagline}
+          {$state.tagline}
         </p>
         
         <div class="cta-container" in:fly={{ y: 30, duration: 1000, delay: 1200 }}>
@@ -206,14 +204,14 @@
       <div class="about-box">
         <div class="about-text">
           <h2>About Me</h2>
-          {#each PII.about as paragraph}
+          {#each $state.about as paragraph}
             <p>{paragraph}</p>
           {/each}
         </div>
   
         <div class="icon-grid">
           <Rocket class="icon neon pulse" />
-          <Code class="icon neon spin" />
+          <Code2 class="icon neon spin" />
           <BrainCircuit class="icon neon flicker" />
         </div>
       </div>
@@ -225,22 +223,22 @@
       
       <div class="skills-tabs">
         <button 
-          class:active={element.activeSkillTab === "frontend"}
-          on:click={() => element.activeSkillTab = "frontend"}
+          class:active={$state.activeSkillTab === "frontend"}
+          on:click={() => $state.activeSkillTab = "frontend"}
         >
           <Monitor size={20} />
           Frontend
         </button>
         <button 
-          class:active={element.activeSkillTab === "backend"}
-          on:click={() => element.activeSkillTab = "backend"}
+          class:active={$state.activeSkillTab === "backend"}
+          on:click={() => $state.activeSkillTab = "backend"}
         >
           <Server size={20} />
           Backend
         </button>
         <button 
-          class:active={element.activeSkillTab === "tools"}
-          on:click={() => element.activeSkillTab = "tools"}
+          class:active={$state.activeSkillTab === "tools"}
+          on:click={() => $state.activeSkillTab = "tools"}
         >
           <Layers size={20} />
           Tools
@@ -248,21 +246,21 @@
       </div>
       
       <div class="skill-container">
-        {#if element.activeSkillTab === "frontend"}
+        {#if $state.activeSkillTab === "frontend"}
           <div class="skill-grid" in:fade={{ duration: 300 }}>
-            {#each PII.skills.frontend as skill}
+            {#each $state.skills.frontend as skill}
               <span>{skill}</span>
             {/each}
           </div>
-        {:else if element.activeSkillTab === "backend"}
+        {:else if $state.activeSkillTab === "backend"}
           <div class="skill-grid" in:fade={{ duration: 300 }}>
-            {#each PII.skills.backend as skill}
+            {#each $state.skills.backend as skill}
               <span>{skill}</span>
             {/each}
           </div>
         {:else}
           <div class="skill-grid" in:fade={{ duration: 300 }}>
-            {#each PII.skills.tools as skill}
+            {#each $state.skills.tools as skill}
               <span>{skill}</span>
             {/each}
           </div>
@@ -275,7 +273,7 @@
       <h2>Featured Projects</h2>
       
       <div class="projects-grid">
-        {#each PII.projects as project, i}
+        {#each $state.projects as project, i}
           <div 
             class="project-card"
             in:fly={{ y: 50, duration: 500, delay: i * 200 }}
@@ -302,15 +300,15 @@
         <p>Interested in working together? Feel free to reach out through any of these channels:</p>
         
         <div class="socials">
-          <a href={PII.social.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <a href={$state.social.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
             <Github class="social-icon neon" />
             <span>GitHub</span>
           </a>
-          <a href={PII.social.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <a href={$state.social.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
             <Linkedin class="social-icon neon" />
             <span>LinkedIn</span>
           </a>
-          <a href={`mailto:${PII.social.email}`} aria-label="Email">
+          <a href={`mailto:${$state.social.email}`} aria-label="Email">
             <Mail class="social-icon neon" />
             <span>Email</span>
           </a>
@@ -321,7 +319,7 @@
     <footer>
       <div class="footer-content">
         <p>Designed & Built with <span class="heart">♥</span> using SvelteKit</p>
-        <p>© {new Date().getFullYear()} {PII.name}</p>
+        <p>© {new Date().getFullYear()} {$state.name}</p>
       </div>
     </footer>
   </div>
@@ -627,51 +625,18 @@
       stroke: #ff4577;
     }
   
-    /* Icon animations */
     .neon {
       animation-timing-function: ease-in-out;
     }
-
-    @keyframes pulse {
-      0%, 100% {
-        transform: scale(1);
-        opacity: 1;
-      }
-      50% {
-        transform: scale(1.1);
-        opacity: 0.8;
-      }
-    }
-
+  
     .pulse {
       animation: pulse 3s infinite alternate;
     }
-
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-
+  
     .spin {
       animation: spin 12s linear infinite;
     }
-
-    @keyframes flicker {
-      0%, 100% {
-        opacity: 1;
-      }
-      50% {
-        opacity: 0.5;
-      }
-      25%, 75% {
-        opacity: 0.7;
-      }
-    }
-
+  
     .flicker {
       animation: flicker 4s infinite ease-in-out;
     }
@@ -881,8 +846,7 @@
       text-shadow: 0 0 12px rgba(255, 69, 119, 0.5);
     }
   
-/* Continuing from where the style section was cut off */
-.contact-card {
+    .contact-card {
       background: rgba(13, 18, 28, 0.85);
       border-radius: 16px;
       padding: 3rem;
@@ -895,160 +859,43 @@
   
     .contact-card p {
       font-size: 1.2rem;
-      line-height: 1.6;
-      margin-bottom: 2rem;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
       color: #a3b1c6;
     }
   
     .socials {
       display: flex;
       justify-content: center;
-      gap: 2.5rem;
-      margin-top: 1.5rem;
+      gap: 3rem;
     }
   
     .socials a {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.5rem;
-      color: #cbd5e1;
+      gap: 0.8rem;
       text-decoration: none;
+      color: #a3b1c6;
       transition: all 0.3s ease;
-      padding: 1rem;
+    }
+  
+    .social-icon {
+      width: 46px;
+      height: 46px;
+      stroke: #00ffd6;
+      filter: drop-shadow(0 0 8px rgba(0, 255, 214, 0.4));
+      transition: all 0.3s ease;
     }
   
     .socials a:hover {
-      transform: translateY(-8px);
+      color: #ff4577;
+      transform: translateY(-5px);
     }
   
     .socials a:hover .social-icon {
       stroke: #ff4577;
-      filter: drop-shadow(0 0 12px rgba(255, 69, 119, 0.6));
+      filter: drop-shadow(0 0 18px rgba(255, 69, 119, 0.6));
+      transform: scale(1.2);
     }
-  
-    .socials a:hover span {
-      color: #ff4577;
-    }
-  
-    .social-icon {
-      width: 30px;
-      height: 30px;
-      stroke: #00ffd6;
-      transition: all 0.3s ease;
-      filter: drop-shadow(0 0 8px rgba(0, 255, 214, 0.4));
-    }
-  
-    /* Footer */
-    footer {
-      padding: 3rem 2rem;
-      text-align: center;
-      background: rgba(10, 14, 23, 0.9);
-      position: relative;
-      z-index: 2;
-      border-top: 1px solid rgba(0, 255, 214, 0.1);
-    }
-  
-    .footer-content {
-      max-width: 800px;
-      margin: 0 auto;
-      color: #a3b1c6;
-    }
-  
-    .heart {
-      color: #ff4577;
-      display: inline-block;
-      animation: heartbeat 1.5s infinite;
-      transform-origin: center;
-    }
-  
-    @keyframes heartbeat {
-      0%, 100% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.2);
-      }
-    }
-  
-    /* Responsive styles */
-    @media (max-width: 1200px) {
-      .title {
-        font-size: 4rem;
-      }
-      
-      .subtitle {
-        font-size: 1.5rem;
-      }
-      
-      .about-box {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-        padding: 2.5rem;
-      }
-      
-      .icon-grid {
-        flex-direction: row;
-        justify-content: space-around;
-      }
-    }
-  
-    @media (max-width: 768px) {
-      .title {
-        font-size: 3rem;
-      }
-      
-      .subtitle {
-        font-size: 1.2rem;
-      }
-      
-      .cta-container {
-        flex-direction: column;
-        gap: 1rem;
-      }
-      
-      .primary-button, .secondary-button {
-        width: 100%;
-        text-align: center;
-      }
-      
-      .projects-grid {
-        grid-template-columns: 1fr;
-      }
-      
-      .skills-tabs {
-        flex-direction: column;
-        width: 100%;
-        max-width: 300px;
-        margin: 0 auto 2rem;
-      }
-      
-      .socials {
-        flex-direction: column;
-        gap: 1rem;
-      }
-      
-      .socials a {
-        flex-direction: row;
-        gap: 1rem;
-      }
-    }
-  
-    @media (max-width: 480px) {
-      .title {
-        font-size: 2.2rem;
-      }
-      
-      section {
-        padding: 4rem 1.5rem;
-      }
-      
-      .about-box, .contact-card, .project-card {
-        padding: 1.5rem;
-      }
-      
-      h2 {
-        font-size: 2rem;
-      }
-    }
-  </style>
+</style> 
