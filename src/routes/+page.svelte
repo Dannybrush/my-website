@@ -152,12 +152,12 @@
     <!-- Animated background blobs -->
     <div 
       class="blob blob-1" 
-      style:transform={`translate(${$cursorSpring.x * 0.02}px, ${$cursorSpring.y * 0.02 - parallaxOffset(0.05)}px)`}    <div 
-      ></div>
-<div 
-class="blob blob-2" 
-      style:transform={`translateY(${parallaxOffset(-0.1)}px)`}    ></div>
-    
+      style:transform={`translate(${$cursorSpring.x * 0.02}px, ${$cursorSpring.y * 0.02 - parallaxOffset(0.05)}px)`}
+    ></div>
+    <div 
+      class="blob blob-2" 
+      style:transform={`translateY(${parallaxOffset(-0.1)}px)`}
+    ></div>
     <!-- Grid overlay -->
     <div class="grid-overlay"></div>
     
