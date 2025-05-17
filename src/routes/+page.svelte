@@ -152,11 +152,11 @@
     <!-- Animated background blobs -->
     <div 
       class="blob blob-1" 
-      style:transform={`translate(${$cursorSpring.x * 0.02}px, ${$cursorSpring.y * 0.02 - parallaxOffset(0.05)}px)`}
+      style:transform={`translate(${$cursorSpring.x * 0.02}px, {$cursorSpring.y * 0.02 - parallaxOffset(0.05)}px)`}
     ></div>
     <div 
       class="blob blob-2" 
-      style:transform={`translate(${-$cursorSpring.x * 0.01}px, ${-$cursorSpring.y * 0.01 - parallaxOffset(0.03)}px)`}
+      style:transform={`translate(${-$cursorSpring.x * 0.01}px, {-$cursorSpring.y * 0.01 - parallaxOffset(0.03)}px)`}
     ></div>
     
     <!-- Grid overlay -->
@@ -168,7 +168,7 @@
       bind:this={heroSection}
       in:fade={{ duration: 1000, delay: 200 }}
     >
-      <div class="hero-content" style:transform={`translateY(${parallaxOffset(-0.1)}px)`}>
+      <div class="hero-content" style:transform={`translateY({parallaxOffset(-0.1)}px)`}>
         <h1 class="title">
           <span 
             class="gradient-text"
