@@ -58,7 +58,7 @@
       description: 'Modern restaurant website with online booking and menu showcase',
       category: 'business' as const,
       tags: ['Restaurant', 'Booking System', 'Mobile-First'],
-      image: '/portfolio/restaurant.jpg',
+      image: '/portfolio-logos/the-crown.png',
       featured: true
     },
     {
@@ -67,7 +67,7 @@
       description: 'Lead generation website for local plumber with instant quote calculator',
       category: 'business' as const,
       tags: ['Local Business', 'Lead Gen', 'Calculator'],
-      image: '/portfolio/plumber.jpg',
+      image: '/portfolio-logos/berkshire-plumbing-services.png',
       featured: true
     },
     {
@@ -84,7 +84,7 @@
       description: 'Custom booking system for beauty salon with automated reminders',
       category: 'webapp' as const,
       tags: ['Booking', 'Automation', 'CRM'],
-      image: '/portfolio/salon.jpg',
+      image: '/portfolio-logos/Salonbook.png',
       featured: true
     },
     {
@@ -93,7 +93,7 @@
       description: 'High-converting landing page for personal trainer with lead capture',
       category: 'landing' as const,
       tags: ['Landing Page', 'Lead Capture', 'SEO'],
-      image: '/portfolio/fitness.jpg'
+      image: '/portfolio-logos/fitness-coach.png'
     },
     {
       id: 'accountant',
@@ -101,7 +101,7 @@
       description: 'Professional services website with client portal integration',
       category: 'business' as const,
       tags: ['Professional Services', 'Portal', 'Secure'],
-      image: '/portfolio/accountant.jpg'
+      image: '/portfolio-logos/Local-Accountancy.png'
     }
   ];
 
