@@ -67,7 +67,7 @@
       description: 'Lead generation website for local plumber with instant quote calculator',
       category: 'business' as const,
       tags: ['Local Business', 'Lead Gen', 'Calculator'],
-      image: '/portfolio-logos/berkshire-plumbing-services.png',
+      image: '/portfolio-logos/bps.png',
       featured: true
     },
     {
@@ -76,7 +76,7 @@
       description: 'E-commerce platform for local artisan products with Stripe integration',
       category: 'ecommerce' as const,
       tags: ['E-commerce', 'Stripe', 'Inventory'],
-      image: '/portfolio/shop.jpg'
+      image: '/portfolio-logos/the-gilded-acorn.png'
     },
     {
       id: 'booking-system',
@@ -93,7 +93,7 @@
       description: 'High-converting landing page for personal trainer with lead capture',
       category: 'landing' as const,
       tags: ['Landing Page', 'Lead Capture', 'SEO'],
-      image: '/portfolio-logos/fitness-coach.png'
+      image: '/portfolio-logos/Afc.png'
     },
     {
       id: 'accountant',
@@ -101,7 +101,7 @@
       description: 'Professional services website with client portal integration',
       category: 'business' as const,
       tags: ['Professional Services', 'Portal', 'Secure'],
-      image: '/portfolio-logos/Local-Accountancy.png'
+      image: '/portfolio-logos/sas.png'
     }
   ];
 
